@@ -1,0 +1,191 @@
+:root {
+  --primary: #2952e3;
+  --primary-dark: #1c3aa8;
+  --text: #1c1f26;
+  --muted: #5b6472;
+  --border: #d8dde5;
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app-header {
+  padding: 2rem 1.5rem 1rem;
+  text-align: center;
+}
+
+.app-header h1 { margin: 0 0 0.25rem; font-size: 1.6rem; }
+.app-header p { margin: 0; color: var(--muted); }
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+
+fieldset {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 0.5rem;
+  color: var(--primary-dark);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+input, textarea, select {
+  font: inherit;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  background: #fff;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0 1rem;
+}
+
+.repeat-row {
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.btn-add, .btn-remove, .btn-primary, .btn-secondary {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  padding: 0.6rem 1.1rem;
+}
+
+.btn-add {
+  background: #eef1fb;
+  color: var(--primary-dark);
+}
+
+.btn-remove {
+  background: #fdeceb;
+  color: #b3261e;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover { background: var(--primary-dark); }
+
+.btn-secondary {
+  background: #e9ecf2;
+  color: var(--text);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.documents {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.doc-wrapper { max-width: 800px; margin: 0 auto; width: 100%; }
+
+.document {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2.5rem;
+  min-height: 400px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* --- CV layout --- */
+.cv-header { border-bottom: 3px solid var(--primary); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+.cv-header h2 { margin: 0; font-size: 1.6rem; }
+.cv-header .cv-poste { color: var(--primary-dark); font-weight: 600; margin: 0.2rem 0 0.6rem; }
+.cv-contact { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--muted); }
+
+.cv-section { margin-bottom: 1.4rem; }
+.cv-section h3 {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--primary-dark);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.7rem;
+}
+.cv-item { margin-bottom: 0.8rem; }
+.cv-item-title { font-weight: 600; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+.cv-item-sub { color: var(--muted); font-size: 0.85rem; margin: 0.1rem 0 0.3rem; }
+.cv-item ul { margin: 0.3rem 0 0; padding-left: 1.2rem; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tag { background: #eef1fb; color: var(--primary-dark); padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.8rem; }
+
+/* --- Letter layout --- */
+.letter-meta { display: flex; justify-content: space-between; margin-bottom: 2rem; font-size: 0.9rem; }
+.letter-object { font-weight: 600; margin-bottom: 1.2rem; }
+.letter-body p { margin: 0 0 1rem; text-align: justify; }
+.letter-signature { margin-top: 2rem; text-align: right; }
+
+.no-print { }
+
+@media print {
+  .no-print, header, #form-view { display: none !important; }
+  body { background: #fff; }
+  main { max-width: none; padding: 0; margin: 0; }
+  .documents { display: block; }
+  .doc-wrapper { max-width: none; }
+  .document { border: none; padding: 0; }
+
+  body[data-printing="cv"] #letter-wrapper { display: none !important; }
+  body[data-printing="letter"] #cv-wrapper { display: none !important; }
+
+  @page { size: A4; margin: 18mm; }
+}
