@@ -3,78 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Générateur de CV &amp; Lettre de Motivation</title>
+<title>Dossier de Candidature</title>
+<meta name="description" content="Formulaire qui transforme vos informations en CV et lettre de motivation prêts à télécharger en PDF.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header class="app-header no-print">
-  <h1>Générateur de CV &amp; Lettre de Motivation</h1>
-  <p>Remplissez le formulaire une fois, obtenez un CV et une lettre de motivation prêts à envoyer.</p>
+<header class="top">
+  <div class="brand"><span class="mark">D.</span><h1>Dossier de Candidature</h1></div>
+  <div class="steps">
+    <span class="step" id="step-1">01 Informations</span>
+    <span class="step" id="step-2">02 Documents</span>
+  </div>
 </header>
 
 <main>
 
-  <section id="form-view">
+  <section id="form-view" hidden>
+    <div class="lede">
+      <h2 style="font-size:1.6rem;">Vos informations</h2>
+      <p>Remplissez ce dossier une fois : il devient un CV et une lettre de motivation, prêts à télécharger en PDF.</p>
+    </div>
+
     <form id="cv-form" novalidate>
 
       <fieldset>
-        <legend>Informations personnelles</legend>
+        <legend class="legend-row"><span class="legend-num">01</span><span class="legend-title">Identité &amp; poste</span></legend>
         <div class="grid">
-          <label>Prénom
-            <input type="text" name="prenom" required>
-          </label>
-          <label>Nom
-            <input type="text" name="nom" required>
-          </label>
-          <label>Email
-            <input type="email" name="email" required>
-          </label>
-          <label>Téléphone
-            <input type="tel" name="telephone">
-          </label>
-          <label>Ville
-            <input type="text" name="ville">
-          </label>
-          <label>Poste visé
-            <input type="text" name="poste" placeholder="Ex : Développeur Full-Stack" required>
-          </label>
+          <label>Prénom <input type="text" name="prenom" required></label>
+          <label>Nom <input type="text" name="nom" required></label>
+          <label>Email <input type="email" name="email" required></label>
+          <label>Téléphone <input type="tel" name="telephone"></label>
+          <label>Ville <input type="text" name="ville"></label>
+          <label>Poste visé <input type="text" name="poste" placeholder="Ex : Développeur Full-Stack" required></label>
         </div>
         <label>Profil / accroche professionnelle
-          <textarea name="profil" rows="3" placeholder="2-3 phrases résumant votre profil et vos objectifs"></textarea>
+          <textarea name="profil" rows="3" placeholder="2 à 3 phrases résumant votre profil et vos objectifs"></textarea>
         </label>
       </fieldset>
 
       <fieldset>
-        <legend>Formation</legend>
+        <legend class="legend-row"><span class="legend-num">02</span><span class="legend-title">Formation</span></legend>
         <div id="formations-list"></div>
         <button type="button" class="btn-add" data-add="formation">+ Ajouter une formation</button>
       </fieldset>
 
       <fieldset>
-        <legend>Expérience professionnelle</legend>
+        <legend class="legend-row"><span class="legend-num">03</span><span class="legend-title">Expérience professionnelle</span></legend>
         <div id="experiences-list"></div>
         <button type="button" class="btn-add" data-add="experience">+ Ajouter une expérience</button>
       </fieldset>
 
       <fieldset>
-        <legend>Compétences</legend>
-        <label>Compétences techniques (séparées par des virgules)
-          <input type="text" name="competences" placeholder="Ex : JavaScript, React, Node.js, SQL">
-        </label>
-        <label>Centres d'intérêt (séparés par des virgules, optionnel)
-          <input type="text" name="interets">
-        </label>
-      </fieldset>
-
-      <fieldset>
-        <legend>Langues</legend>
+        <legend class="legend-row"><span class="legend-num">04</span><span class="legend-title">Compétences &amp; langues</span></legend>
+        <div class="grid">
+          <label>Compétences techniques (séparées par des virgules)
+            <input type="text" name="competences" placeholder="Ex : JavaScript, React, Node.js, SQL">
+          </label>
+          <label>Centres d'intérêt (optionnel)
+            <input type="text" name="interets">
+          </label>
+        </div>
         <div id="langues-list"></div>
         <button type="button" class="btn-add" data-add="langue">+ Ajouter une langue</button>
       </fieldset>
 
       <fieldset>
-        <legend>Lettre de motivation</legend>
+        <legend class="legend-row"><span class="legend-num">05</span><span class="legend-title">Lettre de motivation</span></legend>
         <div class="grid">
           <label>Entreprise destinataire (optionnel)
             <input type="text" name="lettreEntreprise" placeholder="Ex : Acme Corp">
@@ -93,82 +90,75 @@
       </fieldset>
 
       <div class="form-actions">
-        <button type="submit" class="btn-primary">Générer mon CV et ma lettre</button>
         <button type="button" id="btn-reset" class="btn-secondary">Réinitialiser</button>
+        <button type="submit" class="btn-primary">Générer mon CV et ma lettre</button>
       </div>
     </form>
   </section>
 
   <section id="result-view" hidden>
-    <div class="toolbar no-print">
+    <div id="example-banner" class="banner-example" hidden>
+      <strong>Exemple</strong>
+      <span>Ce dossier est rempli avec des données fictives, pour vous montrer le résultat.</span>
+      <button type="button" class="btn-stamp" id="btn-use-mine">Créer le mien →</button>
+    </div>
+
+    <div class="toolbar">
+      <h2 style="font-size:1.4rem;">Votre dossier</h2>
       <button type="button" id="btn-edit" class="btn-secondary">← Modifier mes informations</button>
     </div>
 
     <div class="documents">
-      <div id="cv-wrapper" class="doc-wrapper">
-        <div class="toolbar no-print">
-          <button type="button" class="btn-primary" data-print="cv">Télécharger le CV en PDF</button>
+      <div class="doc-col" id="cv-col">
+        <div class="doc-head"><span class="doc-label">CV</span>
+          <button type="button" class="btn-stamp" data-print="cv">Télécharger en PDF</button>
         </div>
-        <article id="cv-doc" class="document"></article>
+        <article id="cv-doc" class="sheet"></article>
       </div>
 
-      <div id="letter-wrapper" class="doc-wrapper">
-        <div class="toolbar no-print">
-          <button type="button" class="btn-primary" data-print="letter">Télécharger la lettre en PDF</button>
+      <div class="doc-col" id="letter-col">
+        <div class="doc-head"><span class="doc-label">Lettre de motivation</span>
+          <button type="button" class="btn-stamp" data-print="letter">Télécharger en PDF</button>
         </div>
-        <article id="letter-doc" class="document"></article>
+        <article id="letter-doc" class="sheet"></article>
       </div>
     </div>
   </section>
 
+  <footer class="note">Vos informations restent dans votre navigateur — rien n'est envoyé ailleurs.</footer>
 </main>
 
 <template id="formation-row-template">
   <div class="repeat-row" data-row="formation">
+    <div class="row-head"><span class="row-tag">Formation</span><button type="button" class="btn-remove" data-remove>Supprimer</button></div>
     <div class="grid">
-      <label>Diplôme
-        <input type="text" data-field="diplome" required>
-      </label>
-      <label>École / Établissement
-        <input type="text" data-field="ecole">
-      </label>
-      <label>Année de début
-        <input type="text" data-field="debut" placeholder="Ex : 2021">
-      </label>
-      <label>Année de fin
-        <input type="text" data-field="fin" placeholder="Ex : 2024 ou En cours">
-      </label>
+      <label>Diplôme <input type="text" data-field="diplome" required></label>
+      <label>École / Établissement <input type="text" data-field="ecole"></label>
+      <label>Année de début <input type="text" data-field="debut" placeholder="Ex : 2021"></label>
+      <label>Année de fin <input type="text" data-field="fin" placeholder="Ex : 2024 ou En cours"></label>
     </div>
-    <button type="button" class="btn-remove" data-remove>Supprimer</button>
   </div>
 </template>
 
 <template id="experience-row-template">
   <div class="repeat-row" data-row="experience">
+    <div class="row-head"><span class="row-tag">Expérience</span><button type="button" class="btn-remove" data-remove>Supprimer</button></div>
     <div class="grid">
-      <label>Poste
-        <input type="text" data-field="poste" required>
-      </label>
-      <label>Entreprise
-        <input type="text" data-field="entreprise">
-      </label>
-      <label>Période
-        <input type="text" data-field="periode" placeholder="Ex : Jan 2023 - Aujourd'hui">
-      </label>
+      <label>Poste <input type="text" data-field="poste" required></label>
+      <label>Entreprise <input type="text" data-field="entreprise"></label>
+      <label>Période <input type="text" data-field="periode" placeholder="Ex : Jan 2023 - Aujourd'hui"></label>
     </div>
     <label>Missions principales (une par ligne)
       <textarea data-field="description" rows="3"></textarea>
     </label>
-    <button type="button" class="btn-remove" data-remove>Supprimer</button>
   </div>
 </template>
 
 <template id="langue-row-template">
   <div class="repeat-row" data-row="langue">
+    <div class="row-head"><span class="row-tag">Langue</span><button type="button" class="btn-remove" data-remove>Supprimer</button></div>
     <div class="grid">
-      <label>Langue
-        <input type="text" data-field="langue">
-      </label>
+      <label>Langue <input type="text" data-field="langue"></label>
       <label>Niveau
         <select data-field="niveau">
           <option>Notions</option>
@@ -179,7 +169,6 @@
         </select>
       </label>
     </div>
-    <button type="button" class="btn-remove" data-remove>Supprimer</button>
   </div>
 </template>
 
